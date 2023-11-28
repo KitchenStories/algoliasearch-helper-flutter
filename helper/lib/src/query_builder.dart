@@ -177,7 +177,9 @@ class QueryBuilder {
       facets: [facet],
       filterGroups: filterGroupsCopy,
       attributesToRetrieve: [],
+      restrictSearchableAttributes: [],
       attributesToHighlight: [],
+      optionalWords: [],
       hitsPerPage: 0,
       analytics: false,
     );

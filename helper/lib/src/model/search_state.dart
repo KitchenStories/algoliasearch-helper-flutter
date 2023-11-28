@@ -20,6 +20,7 @@ class SearchState implements MultiSearchState {
     this.analytics,
     this.attributesToHighlight,
     this.attributesToRetrieve,
+    this.restrictSearchableAttributes,
     this.attributesToSnippet,
     this.disjunctiveFacets,
     this.isDisjunctiveFacetingEnabled = true,
@@ -46,6 +47,8 @@ class SearchState implements MultiSearchState {
     this.minimumAroundRadius,
     this.aroundPrecision,
     this.insideBoundingBox,
+    this.optionalWords,
+    this.getRankingInfo,
   });
 
   /// Index name
@@ -83,6 +86,18 @@ class SearchState implements MultiSearchState {
 
   /// Gives control over which attributes to retrieve and which not to retrieve.
   final List<String>? attributesToRetrieve;
+
+  /// Restricts a given query to look in only a subset of your searchable
+  /// attributes.
+  final List<String>? restrictSearchableAttributes;
+
+  /// A list of words that should be considered optional when found in the
+  /// query.
+  final List<String>? optionalWords;
+
+  /// This setting lets you see exactly which ranking criteria played a role in
+  /// selecting each record.
+  final bool? getRankingInfo;
 
   /// List of attributes to snippet,
   /// with an optional maximum number of words
@@ -295,6 +310,7 @@ class SearchState implements MultiSearchState {
   SearchState copyWith({
     List<String>? attributesToHighlight,
     List<String>? attributesToRetrieve,
+    List<String>? restrictSearchableAttributes,
     List<String>? attributesToSnippet,
     List<String>? facetFilters,
     List<String>? facets,
@@ -323,11 +339,15 @@ class SearchState implements MultiSearchState {
     int? aroundPrecision,
     int? minimumAroundRadius,
     List<double>? insideBoundingBox,
+    List<String>? optionalWords,
+    bool? getRankingInfo,
   }) =>
       SearchState(
         attributesToHighlight:
             attributesToHighlight ?? this.attributesToHighlight,
         attributesToRetrieve: attributesToRetrieve ?? this.attributesToRetrieve,
+        restrictSearchableAttributes:
+            restrictSearchableAttributes ?? this.restrictSearchableAttributes,
         attributesToSnippet: attributesToSnippet ?? this.attributesToSnippet,
         facetFilters: facetFilters ?? this.facetFilters,
         facets: facets ?? this.facets,
@@ -357,6 +377,8 @@ class SearchState implements MultiSearchState {
         aroundPrecision: aroundPrecision ?? this.aroundPrecision,
         minimumAroundRadius: minimumAroundRadius ?? this.minimumAroundRadius,
         insideBoundingBox: insideBoundingBox ?? this.insideBoundingBox,
+        optionalWords: optionalWords ?? this.optionalWords,
+        getRankingInfo: getRankingInfo ?? this.getRankingInfo,
       );
 
   @override
@@ -377,6 +399,8 @@ class SearchState implements MultiSearchState {
           facetFilters.equals(other.facetFilters) &&
           attributesToHighlight.equals(other.attributesToHighlight) &&
           attributesToRetrieve.equals(other.attributesToRetrieve) &&
+          restrictSearchableAttributes
+              .equals(other.restrictSearchableAttributes) &&
           attributesToSnippet.equals(other.attributesToSnippet) &&
           highlightPostTag == other.highlightPostTag &&
           highlightPreTag == other.highlightPreTag &&
@@ -394,7 +418,9 @@ class SearchState implements MultiSearchState {
           aroundRadius == other.aroundRadius &&
           aroundPrecision == other.aroundPrecision &&
           minimumAroundRadius == other.minimumAroundRadius &&
-          insideBoundingBox.equals(other.insideBoundingBox);
+          insideBoundingBox.equals(other.insideBoundingBox) &&
+          optionalWords.equals(other.optionalWords) &&
+          getRankingInfo == other.getRankingInfo;
 
   @override
   int get hashCode =>
@@ -410,6 +436,7 @@ class SearchState implements MultiSearchState {
       facetFilters.hashing() ^
       attributesToHighlight.hashing() ^
       attributesToRetrieve.hashing() ^
+      restrictSearchableAttributes.hashing() ^
       attributesToSnippet.hashing() ^
       highlightPostTag.hashCode ^
       highlightPreTag.hashCode ^
@@ -427,7 +454,9 @@ class SearchState implements MultiSearchState {
       aroundRadius.hashCode ^
       aroundPrecision.hashCode ^
       minimumAroundRadius.hashCode ^
-      insideBoundingBox.hashing();
+      insideBoundingBox.hashing() ^
+      optionalWords.hashing() ^
+      getRankingInfo.hashCode;
 
   @override
   String toString() => 'SearchState{'
@@ -436,6 +465,7 @@ class SearchState implements MultiSearchState {
       'analytics: $analytics, '
       'attributesToHighlight: $attributesToHighlight, '
       'attributesToRetrieve: $attributesToRetrieve, '
+      'restrictSearchableAttributes: $restrictSearchableAttributes, '
       'attributesToSnippet: $attributesToSnippet, '
       'disjunctiveFacets: $disjunctiveFacets, '
       'isDisjunctiveFacetingEnabled: $isDisjunctiveFacetingEnabled, '
@@ -460,5 +490,7 @@ class SearchState implements MultiSearchState {
       'aroundRadius: $aroundRadius, '
       'aroundPrecision: $aroundPrecision, '
       'minimumAroundRadius: $minimumAroundRadius, '
-      'insideBoundingBox: $insideBoundingBox}';
+      'insideBoundingBox: $insideBoundingBox}, '
+      'optionalWords: $optionalWords, '
+      'getRankingInfo: $getRankingInfo';
 }

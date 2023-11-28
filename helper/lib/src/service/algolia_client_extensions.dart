@@ -31,6 +31,7 @@ extension AlgolisSearchStateExt on SearchState {
       analytics: analytics,
       attributesToHighlight: attributesToHighlight,
       attributesToRetrieve: attributesToRetrieve,
+      restrictSearchableAttributes: restrictSearchableAttributes,
       attributesToSnippet: attributesToSnippet,
       facetFilters: facetFilters,
       facets: facets,
@@ -55,6 +56,8 @@ extension AlgolisSearchStateExt on SearchState {
       aroundRadius: aroundRadius,
       minimumAroundRadius: minimumAroundRadius,
       insideBoundingBox: insideBoundingBox,
+      optionalWords: optionalWords,
+      getRankingInfo: getRankingInfo,
     );
     return search;
   }
@@ -77,6 +80,7 @@ extension AlgolisFacetSearchStateExt on FacetSearchState {
       analytics: searchState.analytics,
       attributesToHighlight: searchState.attributesToHighlight,
       attributesToRetrieve: searchState.attributesToRetrieve,
+      restrictSearchableAttributes: searchState.restrictSearchableAttributes,
       attributesToSnippet: searchState.attributesToSnippet,
       facetFilters: searchState.facetFilters,
       facets: searchState.facets,
@@ -95,6 +99,8 @@ extension AlgolisFacetSearchStateExt on FacetSearchState {
       userToken: searchState.userToken,
       filters: filters,
       clickAnalytics: searchState.clickAnalytics,
+      optionalWords: searchState.optionalWords,
+      getRankingInfo: searchState.getRankingInfo,
     );
     return search;
   }
