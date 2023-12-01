@@ -49,6 +49,7 @@ class SearchState implements MultiSearchState {
     this.insideBoundingBox,
     this.optionalWords,
     this.getRankingInfo,
+    this.advancedSyntax,
   });
 
   /// Index name
@@ -94,6 +95,9 @@ class SearchState implements MultiSearchState {
   /// A list of words that should be considered optional when found in the
   /// query.
   final List<String>? optionalWords;
+
+  /// Enables the advanced query syntax.
+  final bool? advancedSyntax;
 
   /// This setting lets you see exactly which ranking criteria played a role in
   /// selecting each record.
@@ -341,6 +345,7 @@ class SearchState implements MultiSearchState {
     List<double>? insideBoundingBox,
     List<String>? optionalWords,
     bool? getRankingInfo,
+    bool? advancedSyntax,
   }) =>
       SearchState(
         attributesToHighlight:
@@ -379,6 +384,7 @@ class SearchState implements MultiSearchState {
         insideBoundingBox: insideBoundingBox ?? this.insideBoundingBox,
         optionalWords: optionalWords ?? this.optionalWords,
         getRankingInfo: getRankingInfo ?? this.getRankingInfo,
+        advancedSyntax: advancedSyntax ?? this.advancedSyntax,
       );
 
   @override
@@ -420,7 +426,8 @@ class SearchState implements MultiSearchState {
           minimumAroundRadius == other.minimumAroundRadius &&
           insideBoundingBox.equals(other.insideBoundingBox) &&
           optionalWords.equals(other.optionalWords) &&
-          getRankingInfo == other.getRankingInfo;
+          getRankingInfo == other.getRankingInfo &&
+          advancedSyntax == other.advancedSyntax;
 
   @override
   int get hashCode =>
@@ -456,7 +463,8 @@ class SearchState implements MultiSearchState {
       minimumAroundRadius.hashCode ^
       insideBoundingBox.hashing() ^
       optionalWords.hashing() ^
-      getRankingInfo.hashCode;
+      getRankingInfo.hashCode ^
+      advancedSyntax.hashCode;
 
   @override
   String toString() => 'SearchState{'
@@ -492,5 +500,6 @@ class SearchState implements MultiSearchState {
       'minimumAroundRadius: $minimumAroundRadius, '
       'insideBoundingBox: $insideBoundingBox}, '
       'optionalWords: $optionalWords, '
-      'getRankingInfo: $getRankingInfo';
+      'getRankingInfo: $getRankingInfo, '
+      'advancedSyntax: $advancedSyntax';
 }

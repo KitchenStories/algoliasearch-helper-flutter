@@ -58,6 +58,7 @@ extension AlgolisSearchStateExt on SearchState {
       insideBoundingBox: insideBoundingBox,
       optionalWords: optionalWords,
       getRankingInfo: getRankingInfo,
+      advancedSyntax: advancedSyntax,
     );
     return search;
   }
@@ -101,6 +102,7 @@ extension AlgolisFacetSearchStateExt on FacetSearchState {
       clickAnalytics: searchState.clickAnalytics,
       optionalWords: searchState.optionalWords,
       getRankingInfo: searchState.getRankingInfo,
+      advancedSyntax: searchState.advancedSyntax,
     );
     return search;
   }
